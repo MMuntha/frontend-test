@@ -1,8 +1,8 @@
 export enum OrderStatus {
-  New = 'New',
-  Active = 'Active',
-  Ready = 'Ready',
-  Completed = 'Completed',
+  New = "New",
+  Active = "Active",
+  Ready = "Ready",
+  Completed = "Completed",
 }
 
 export interface Order {
