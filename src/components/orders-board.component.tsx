@@ -1,5 +1,5 @@
 import React from "react";
-import { PrimaryButton } from "./atoms";
+import { CountBadge } from "./atoms";
 import { OrderCard } from "./molecules";
 import data from "../data/orders.json";
 import { useState, useEffect } from "react";
@@ -74,7 +74,10 @@ export const OrdersBoard: React.FC = () => {
   return (
     <div className="flex justify-around items-start space-x-14 pt-2">
       <div>
-        <h1 className="text-2xl font-bold mb-[10px]">New</h1>
+        <div className="flex flex-row items-center gap-x-1 pl-2">
+          <h1 className="text-2xl font-bold mb-[10px]">New</h1>
+          <CountBadge count={newOrders.length} bgColor="red" />
+        </div>
         {newOrders &&
           newOrders.map((order) => (
             <OrderCard
@@ -89,7 +92,10 @@ export const OrdersBoard: React.FC = () => {
           ))}
       </div>
       <div>
-        <h1 className="text-2xl font-bold mb-[10px]">Active </h1>
+        <div className="flex flex-row items-center gap-x-1 pl-2 ">
+          <h1 className="text-2xl font-bold mb-[10px]">Active </h1>
+          <CountBadge count={activeOrders.length} bgColor="#1B73E7" />
+        </div>
         {activeOrders &&
           activeOrders.map((order) => (
             <OrderCard
@@ -104,7 +110,9 @@ export const OrdersBoard: React.FC = () => {
           ))}
       </div>
       <div>
-        <h1 className="text-2xl font-bold mb-[10px]">Ready</h1>
+        <div className="flex flex-row items-center gap-x-1 pl-2">
+          <h1 className="text-2xl font-bold mb-[10px]">Ready</h1>
+        </div>
         {readyOrders &&
           readyOrders.map((order) => (
             <OrderCard

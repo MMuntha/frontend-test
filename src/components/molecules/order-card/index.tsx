@@ -32,12 +32,14 @@ const OrderCard = ({
     }
   };
   return (
-    <div className="bg-white w-[350px] h-48 p-2.5 rounded shadow-2xl mb-[20px]">
-      <p className="text-xs">{id}</p>
-      <p className="text-sm">{name} </p>
-      <p className="text-xs">{`${numberOfItems} items 300`}</p>
+    <div className="flex flex-col justify-between bg-white w-[350px] h-48 p-5 rounded drop-shadow-2xl mb-[20px]">
       <div>
-        <p className="text-xs">{location}</p>
+        <p className="text-xs">{id}</p>
+        <p className="text-sm font-semibold">{name} </p>
+        <p className="text-xs">{`${numberOfItems} items 300`}</p>
+      </div>
+      <div className="w-full flex flex-row justify-between">
+        <p className="text-sm font-semibold">{location}</p>
         <PrimaryButton text={getButtonText(status)} onClick={onClick} />
       </div>
     </div>
