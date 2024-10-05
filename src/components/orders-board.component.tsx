@@ -7,8 +7,8 @@ import { Order, OrderStatus } from "../types/order.type";
 
 export const OrdersBoard: React.FC = () => {
   const [newOrders, setNewOrders] = useState<Order[]>([]);
-  const [activeOrders, setActiveOrders] = useState<Order[]>();
-  const [readyOrders, setReadyOrders] = useState<Order[]>();
+  const [activeOrders, setActiveOrders] = useState<Order[]>([]);
+  const [readyOrders, setReadyOrders] = useState<Order[]>([]);
 
   const categorizeOrders = () => {
     const newOrdersTemp: Order[] = [];
@@ -18,7 +18,7 @@ export const OrdersBoard: React.FC = () => {
     data.forEach((order) => {
       const orderWithEnumStatus = {
         ...order,
-        status: order.status as OrderStatus, // Cast status to OrderStatus
+        status: order.status as OrderStatus,
       };
 
       if (orderWithEnumStatus.status === OrderStatus.New) {
@@ -30,7 +30,6 @@ export const OrdersBoard: React.FC = () => {
       }
     });
 
-    // After the loop, set the states with the new arrays
     setNewOrders(newOrdersTemp);
     setActiveOrders(activeOrdersTemp);
     setReadyOrders(readyOrdersTemp);
@@ -40,6 +39,38 @@ export const OrdersBoard: React.FC = () => {
     categorizeOrders();
   }, [data]);
 
+  const handleClick = (order: Order) => {
+    let updatedOrder: Order | undefined;
+
+    if (order.status === OrderStatus.New) {
+      updatedOrder = { ...order, status: OrderStatus.Active };
+    } else if (order.status === OrderStatus.Active) {
+      updatedOrder = { ...order, status: OrderStatus.Ready };
+    } else if (order.status === OrderStatus.Ready) {
+      updatedOrder = { ...order, status: OrderStatus.Completed };
+    }
+
+    if (updatedOrder) {
+      setNewOrders((prevOrders) => prevOrders.filter((o) => o.id !== order.id));
+      setActiveOrders((prevOrders) =>
+        prevOrders.filter((o) => o.id !== order.id)
+      );
+      setReadyOrders((prevOrders) =>
+        prevOrders.filter((o) => o.id !== order.id)
+      );
+
+      if (updatedOrder.status === OrderStatus.Active) {
+        // @ts-ignore
+        setActiveOrders((prevOrders) => [...prevOrders, updatedOrder]);
+      } else if (updatedOrder.status === OrderStatus.Ready) {
+        // @ts-ignore
+
+        setReadyOrders((prevOrders) => [...prevOrders, updatedOrder]);
+      } else if (updatedOrder.status === OrderStatus.Completed) {
+        console.log(`Order ${updatedOrder.id} has been completed.`);
+      }
+    }
+  };
   return (
     <div className="flex justify-around items-start space-x-14 pt-2">
       <div>
@@ -53,6 +84,7 @@ export const OrdersBoard: React.FC = () => {
               name={order.pricelist.name}
               status={order.status}
               price={"300"}
+              onClick={() => handleClick(order)}
             />
           ))}
       </div>
@@ -67,6 +99,7 @@ export const OrdersBoard: React.FC = () => {
               name={order.pricelist.name}
               status={order.status}
               price={"300"}
+              onClick={() => handleClick(order)}
             />
           ))}
       </div>
@@ -81,6 +114,7 @@ export const OrdersBoard: React.FC = () => {
               name={order.pricelist.name}
               status={order.status}
               price={"300"}
+              onClick={() => handleClick(order)}
             />
           ))}
       </div>

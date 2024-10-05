@@ -8,6 +8,7 @@ interface IOderCard {
   price: string;
   location: string;
   status: OrderStatus;
+  onClick: () => void;
 }
 
 const OrderCard = ({
@@ -17,7 +18,19 @@ const OrderCard = ({
   price,
   location,
   status,
+  onClick,
 }: IOderCard) => {
+  const getButtonText = (status: OrderStatus): string => {
+    if (status === OrderStatus.New) {
+      return "Approve";
+    } else if (status === OrderStatus.Active) {
+      return "Ready";
+    } else if (status === OrderStatus.Ready) {
+      return "Complete";
+    } else {
+      return "";
+    }
+  };
   return (
     <div className="bg-white w-[350px] h-48 p-2.5 rounded shadow-2xl mb-[20px]">
       <p className="text-xs">{id}</p>
@@ -25,10 +38,7 @@ const OrderCard = ({
       <p className="text-xs">{`${numberOfItems} items 300`}</p>
       <div>
         <p className="text-xs">{location}</p>
-        <PrimaryButton
-          text="Approve"
-          onClick={() => console.log("hwllo world")}
-        ></PrimaryButton>
+        <PrimaryButton text={getButtonText(status)} onClick={onClick} />
       </div>
     </div>
   );
