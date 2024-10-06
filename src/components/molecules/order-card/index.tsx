@@ -5,7 +5,7 @@ interface IOderCard {
   id: number;
   name: string;
   numberOfItems: number;
-  price: string;
+  price: number;
   location: string;
   status: OrderStatus;
   onClick: () => void;
@@ -36,7 +36,7 @@ const OrderCard = ({
       <div>
         <p className="text-xs">{id}</p>
         <p className="text-sm font-semibold">{name} </p>
-        <p className="text-xs">{`${numberOfItems} items 300`}</p>
+        <p className="text-xs">{`${numberOfItems} items €${String(price)}`}</p>
       </div>
       <div className="w-full flex flex-row justify-between">
         <p className="text-sm font-semibold">{location}</p>

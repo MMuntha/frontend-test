@@ -71,6 +71,17 @@ export const OrdersBoard: React.FC = () => {
       }
     }
   };
+
+  const getTotalPrice = (order: Order): number => {
+    let totalPrice = 0;
+
+    order.items.forEach((order) => {
+      totalPrice += order.price * order.quantity;
+    });
+
+    return totalPrice;
+  };
+
   return (
     <div className="flex justify-around items-start space-x-14 pt-2">
       <div>
@@ -86,7 +97,7 @@ export const OrdersBoard: React.FC = () => {
               location={order.location}
               name={order.pricelist.name}
               status={order.status}
-              price={"300"}
+              price={getTotalPrice(order)}
               onClick={() => handleClick(order)}
             />
           ))}
@@ -104,7 +115,7 @@ export const OrdersBoard: React.FC = () => {
               location={order.location}
               name={order.pricelist.name}
               status={order.status}
-              price={"300"}
+              price={getTotalPrice(order)}
               onClick={() => handleClick(order)}
             />
           ))}
@@ -121,7 +132,7 @@ export const OrdersBoard: React.FC = () => {
               location={order.location}
               name={order.pricelist.name}
               status={order.status}
-              price={"300"}
+              price={getTotalPrice(order)}
               onClick={() => handleClick(order)}
             />
           ))}
