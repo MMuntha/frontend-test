@@ -92,6 +92,7 @@ export const OrdersBoard: React.FC = () => {
         {newOrders &&
           newOrders.map((order) => (
             <OrderCard
+              key={order.id}
               id={order.id}
               numberOfItems={order.items.length}
               location={order.location}
@@ -110,6 +111,7 @@ export const OrdersBoard: React.FC = () => {
         {activeOrders &&
           activeOrders.map((order) => (
             <OrderCard
+              key={order.id}
               id={order.id}
               numberOfItems={order.items.length}
               location={order.location}
@@ -127,6 +129,7 @@ export const OrdersBoard: React.FC = () => {
         {readyOrders &&
           readyOrders.map((order) => (
             <OrderCard
+              key={order.id}
               id={order.id}
               numberOfItems={order.items.length}
               location={order.location}
